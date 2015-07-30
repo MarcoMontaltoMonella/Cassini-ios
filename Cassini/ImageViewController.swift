@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     //model
     var imageURL: NSURL? {
@@ -30,8 +30,24 @@ class ImageViewController: UIViewController {
                 image = UIImage(data: imageData!)
             } else {
                 image = nil
-                //is calling the computed property
+                // is calling the computed property
             }
+        }
+    }
+    
+    // image in which I want to zoom on
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet{
+            // great place to set the delegate of outlets
+            scrollView.contentSize = imageView.frame.size
+            scrollView.delegate = self
+            scrollView.minimumZoomScale = 0.03
+            scrollView.maximumZoomScale = 1.0
         }
     }
     
@@ -47,12 +63,14 @@ class ImageViewController: UIViewController {
             //do something when the image change
             imageView.image = newValue
             imageView.sizeToFit()
+            scrollView?.contentSize = imageView.frame.size
         }
     }
     
+    // Good place to build the view hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(imageView)
+        scrollView.addSubview(imageView)
     }
     
     override func viewWillAppear(animated: Bool) {
