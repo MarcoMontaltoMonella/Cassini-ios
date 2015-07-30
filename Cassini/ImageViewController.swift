@@ -21,16 +21,35 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     private func fetchImage(){
         if let url = imageURL {
             // NSData is just a bag of bits
-            // It can be slow. Or the phone can disconnect from the network
-            let imageData = NSData(contentsOfURL: url)
-            if imageData != nil {
-                image = UIImage(data: imageData!)
-            } else {
-                image = nil
-                // is calling the computed property
+            
+            spinner?.startAnimating()
+            
+            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            let queue = dispatch_get_global_queue(qos, 0)
+            
+            dispatch_async(queue) { () -> Void in
+                let imageData = NSData(contentsOfURL: url)
+                
+                dispatch_async(dispatch_get_main_queue()){
+                    // N.B. The UI must be handled in the main queue
+                    if url == self.imageURL {
+                        // if the user is still waiting for the requested image
+                        
+                        if imageData != nil {
+                            self.image = UIImage(data: imageData!)
+                        } else {
+                            self.image = nil
+                            // is calling the computed property
+                        }
+                    }
+                }
             }
         }
     }
@@ -64,6 +83,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            spinner?.stopAnimating()
         }
     }
     

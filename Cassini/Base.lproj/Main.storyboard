@@ -107,9 +107,14 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6b9-YI-tjl">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="iSW-pU-czk">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="iSW-pU-czk" secondAttribute="centerY" id="0pC-eO-SdI"/>
+                            <constraint firstAttribute="centerX" secondItem="iSW-pU-czk" secondAttribute="centerX" id="C5l-Zb-t8y"/>
                             <constraint firstItem="6b9-YI-tjl" firstAttribute="bottom" secondItem="cvB-VM-d2c" secondAttribute="top" id="del-ei-HS7"/>
                             <constraint firstItem="6b9-YI-tjl" firstAttribute="top" secondItem="AMe-ok-y1Y" secondAttribute="top" id="onB-3L-LVS"/>
                             <constraint firstItem="6b9-YI-tjl" firstAttribute="leading" secondItem="AMe-ok-y1Y" secondAttribute="leading" id="qQW-FB-uaz"/>
@@ -118,6 +123,7 @@
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="6b9-YI-tjl" id="xlK-mo-bMl"/>
+                        <outlet property="spinner" destination="iSW-pU-czk" id="W3h-Lt-CN4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmN-KN-2K3" userLabel="First Responder" sceneMemberID="firstResponder"/>
