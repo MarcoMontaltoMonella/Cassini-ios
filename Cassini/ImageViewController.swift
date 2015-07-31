@@ -23,6 +23,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     
     
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private func fetchImage(){
